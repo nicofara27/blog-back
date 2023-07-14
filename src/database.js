@@ -4,5 +4,5 @@ import mysql from "mysql";
     host: "localhost",
     user: "root",
     password: "1234",
-    database: "to-do-db",
+    database: "blog-db",
   });
