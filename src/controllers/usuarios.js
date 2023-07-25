@@ -20,13 +20,15 @@ export const registrar = (req, res) => {
 
   db.query(agregarUsuario, [values], (err, data) => {
     if (err) return res.status(500).json(err);
-    return res.status(200).json("El usuario se creo correctamente");
+    return res.status(201).json("El usuario se creo correctamente");
   });
 };
+
 
 export const login = (req, res) => {
   const comprobar = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
   db.query(comprobar, [req.body.nombreUsuario], (err, data) =>{
+    console.log(data)
     if(err) return res.json(err);
     if(data.length === 0) return res.status(404).json("Usuario no encontrado")
     
@@ -43,5 +45,10 @@ export const login = (req, res) => {
   });
   };
   
-  export const logout = (req, res) => {};
+  export const logout = (req, res) => {
+    res.clearCookie("access_token", {
+      sameSite:"none",
+      secure: true
+    }).status(200).json("Se cerro la sesion correctamente");
+  };
   
