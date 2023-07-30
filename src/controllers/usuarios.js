@@ -24,31 +24,38 @@ export const registrar = (req, res) => {
   });
 };
 
-
 export const login = (req, res) => {
   const comprobar = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
-  db.query(comprobar, [req.body.nombreUsuario], (err, data) =>{
-    console.log(data)
-    if(err) return res.json(err);
-    if(data.length === 0) return res.status(404).json("Usuario no encontrado")
-    
-    const compContrasenia = bcrypt.compareSync(req.body.contrasenia, data[0].contrasenia);
-    
-    if(!compContrasenia) return res.status(400).json("La contraseña es incorrecta");
-    
-    const token = jwt.sign({id: data[0].id}, "jwtkey");
-    const {contrasenia, ...otros} = data[0];
-    
-    res.cookie("access_token", token, {
-      httpOnly:true
-    }).status(200).json(otros);
+
+  db.query(comprobar, [req.body.nombreUsuario], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length === 0) return res.status(404).json("Usuario no encontrado");
+
+    const compContrasenia = bcrypt.compareSync(
+      req.body.contrasenia,
+      data[0].contrasenia
+    );
+
+    if (!compContrasenia)
+      return res.status(400).json("Contraseña o usuario incorrecto");
+
+    const token = jwt.sign({ id: data[0].id }, "jwtkey");
+    const { password, ...otros } = data[0];
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json(otros);
   });
-  };
-  
-  export const logout = (req, res) => {
-    res.clearCookie("access_token", {
-      sameSite:"none",
-      secure: true
-    }).status(200).json("Se cerro la sesion correctamente");
-  };
-  
+};
+
+export const logout = (req, res) => {
+  res
+    .clearCookie("access_token", {
+      sameSite: "none",
+      secure: true,
+    })
+    .status(200)
+    .json("Se cerro la sesion correctamente");
+};
