@@ -7,10 +7,9 @@ import routerArticulos from "./routes/articulos.routes.js";
 
 const app = express();
 
-app.use(cors({ origin: true, credentials: true })); 
-app.use(cookieParser())
-app.use(express.json())
-
+app.use(cookieParser());
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.json());
 
 app.set("port", process.env.PORT || 4000);
 
