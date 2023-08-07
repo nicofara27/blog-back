@@ -69,5 +69,27 @@ export const borrarArticulo = (req, res) => {
   });
 };
 export const editarArticulo = (req, res) => {
-  res.json("ASD");
+  const token = req.cookies.access_token;
+  if (!token) return res.status(401).json("No estas autenticado");
+
+  jwt.verify(token, "jwtkey", (err, userInfo) => {
+    if (err) return res.status(403).json("El token no es valido");
+
+    const artId= req.params.id;
+    const agregar =
+      "UPDATE articulos SET `titulo`=?,`texto`=?,`img`=?,`categoria`=? WHERE `id`=? AND `uid`=?";
+
+    const values = [
+      req.body.titulo,
+      req.body.texto,
+      req.body.img,
+      req.body.categoria,
+    ];
+
+    db.query(agregar, [...values, artId, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.json("El articulo se edito correctamente");
+    });
+  });
 };
