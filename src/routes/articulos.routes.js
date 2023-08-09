@@ -18,8 +18,8 @@ router
     [
       check("titulo")
         .notEmpty()
-        .isLength({ min: 4, max: 70 })
-        .withMessage("El titulo debe tener entre 4 y 70 caracteres"),
+        .isLength({ min: 4, max: 150 })
+        .withMessage("El titulo debe tener entre 4 y 150 caracteres"),
       check("texto").notEmpty(),
       check("img")
         .notEmpty()
@@ -42,8 +42,8 @@ router
     [
       check("titulo")
         .notEmpty()
-        .isLength({ min: 4, max: 70 })
-        .withMessage("El titulo debe tener entre 4 y 70 caracteres"),
+        .isLength({ min: 4, max: 150 })
+        .withMessage("El titulo debe tener entre 4 y 150 caracteres"),
       check("texto").notEmpty(),
       check("img")
         .notEmpty()
