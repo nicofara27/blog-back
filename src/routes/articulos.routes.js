@@ -18,13 +18,13 @@ router
     [
       check("titulo")
         .notEmpty()
-        .isLength({ min: 4, max: 150 })
-        .withMessage("El titulo debe tener entre 4 y 150 caracteres"),
+        .isLength({ min: 4, max: 200 })
+        .withMessage("El titulo debe tener entre 4 y 200 caracteres"),
       check("texto").notEmpty(),
       check("img")
         .notEmpty()
-        .isLength({ min: 6, max: 100 })
-        .withMessage("La imagen debe tener entre 6 y 100 caracteres"),
+        .isLength({ min: 6, max: 200 })
+        .withMessage("La imagen debe tener entre 6 y 200 caracteres"),
       check("categoria")
         .notEmpty()
         .isLength({ min: 4, max: 10 })
@@ -42,13 +42,13 @@ router
     [
       check("titulo")
         .notEmpty()
-        .isLength({ min: 4, max: 150 })
-        .withMessage("El titulo debe tener entre 4 y 150 caracteres"),
+        .isLength({ min: 4, max: 200 })
+        .withMessage("El titulo debe tener entre 4 y 200 caracteres"),
       check("texto").notEmpty(),
       check("img")
         .notEmpty()
-        .isLength({ min: 6, max: 100 })
-        .withMessage("La imagen debe tener entre 6 y 100 caracteres"),
+        .isLength({ min: 6, max: 200 })
+        .withMessage("La imagen debe tener entre 6 y 200 caracteres"),
       check("categoria")
         .notEmpty()
         .isLength({ min: 4, max: 10 })
