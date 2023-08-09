@@ -17,7 +17,6 @@ export const registrar = (req, res) => {
   const agregarUsuario =
     "INSERT INTO usuarios (`nombreUsuario`, `email`, `contrasenia`) VALUES (?)";
   const values = [req.body.nombreUsuario, req.body.email, hash];
-
   db.query(agregarUsuario, [values], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(201).json("El usuario se creo correctamente");
@@ -26,7 +25,6 @@ export const registrar = (req, res) => {
 
 export const login = (req, res) => {
   const comprobar = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
-
   db.query(comprobar, [req.body.nombreUsuario], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length === 0) return res.status(404).json("Usuario no encontrado");
@@ -44,7 +42,7 @@ export const login = (req, res) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
-        secure: false
+        secure: false,
       })
       .status(200)
       .json(otros);
